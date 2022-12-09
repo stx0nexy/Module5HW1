@@ -6,5 +6,5 @@ namespace Module5HW1.Services.Abstractions;
 public interface IResourceService
 {
     Task<ResourceDto> GetSingleResource(int id);
-    Task<ListUsersResponse<ResourceDto>> GetListResource();
+    Task<ListResponse<ResourceDto>> GetListResource();
 }

@@ -27,13 +27,14 @@ public class UserService : IUserService
 
     public async Task<UserDto> GetUserById(int id)
     {
-        var result = await _httpClientService.SendAsync<SingleUserResponse<UserDto>,
+        var result = await _httpClientService.SendAsync<SingleResponse<UserDto>,
             object>($"{_options.Host}{_userApi}{id}", HttpMethod.Get);
 
         if (result?.Data != null)
         {
             _logger.LogInformation($"User with id = {result.Data.Id} was found");
-        } 
+        }
+
         return result?.Data;
     }
 
@@ -58,12 +59,13 @@ public class UserService : IUserService
 
     public async Task<List<UserDto>> GetListUsers(int page)
     {
-        var result = await _httpClientService.SendAsync<ListUsersResponse<UserDto>,
+        var result = await _httpClientService.SendAsync<ListResponse<UserDto>,
             object>($"{_options.Host}{_userApi}?page={page}", HttpMethod.Get);
         if (result?.Page != null)
         {
             _logger.LogInformation($"Users was found");
         }
+
         return result?.Data;
     }
 
@@ -85,6 +87,7 @@ public class UserService : IUserService
 
         return result;
     }
+
     public async Task<UpdateUserResponse> UpdateUserPatch(string name, string job, int id)
     {
         var result = await _httpClientService.SendAsync<UpdateUserResponse, UserRequest>(
@@ -103,6 +106,7 @@ public class UserService : IUserService
 
         return result;
     }
+
     public async Task<bool> DeleteUser(int id)
     {
         var result = await _httpClientService.SendAsync<string, object>(
@@ -116,14 +120,15 @@ public class UserService : IUserService
         return true;
     }
 
-    public async Task<ListUsersResponse<UserDto>> UsersDelay(int page)
+    public async Task<ListResponse<UserDto>> UsersDelay(int page)
     {
-        var result = await _httpClientService.SendAsync<ListUsersResponse<UserDto>,
+        var result = await _httpClientService.SendAsync<ListResponse<UserDto>,
             object>($"{_options.Host}{_userApi}?delay={page}", HttpMethod.Get);
         if (result != null)
         {
             _logger.LogInformation($"Users delay was found");
         }
+
         return result;
     }
 }

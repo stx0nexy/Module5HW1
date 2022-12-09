@@ -11,5 +11,5 @@ public interface IUserService
     Task<UpdateUserResponse> UpdateUserPut(string name, string job, int id);
     Task<UpdateUserResponse> UpdateUserPatch(string name, string job, int id);
     Task<bool> DeleteUser(int id);
-    Task<ListUsersResponse<UserDto>> UsersDelay(int page);
+    Task<ListResponse<UserDto>> UsersDelay(int page);
 }

@@ -26,7 +26,7 @@ public class ResourceService: IResourceService
 
     public async Task<ResourceDto> GetSingleResource(int id)
     {
-        var result = await _httpClientService.SendAsync<SingleUserResponse<ResourceDto>,
+        var result = await _httpClientService.SendAsync<SingleResponse<ResourceDto>,
             object>($"{_options.Host}{_resourceApi}{id}", HttpMethod.Get);
 
         if (result?.Data != null)
@@ -36,13 +36,13 @@ public class ResourceService: IResourceService
         return result?.Data;
     }
 
-    public async Task<ListUsersResponse<ResourceDto>> GetListResource()
+    public async Task<ListResponse<ResourceDto>> GetListResource()
     {
-        var result = await _httpClientService.SendAsync<ListUsersResponse<ResourceDto>,
+        var result = await _httpClientService.SendAsync<ListResponse<ResourceDto>,
             object>($"{_options.Host}{_resourceApi}", HttpMethod.Get);
-        if (result?.Page != null)
+        if (result != null)
         {
-            _logger.LogInformation($"Users was found");
+            _logger.LogInformation($"Resources was found");
         }
         return result;
     }
